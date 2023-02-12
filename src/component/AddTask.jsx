@@ -36,7 +36,7 @@ const AddTask = () => {
                 <label className="track-wide uppercase text-gray-700 text-xs font-semibold mb-2
                 block"
                 htmlFor="project-name">
-                    Project Name
+                    Task Description
                 </label>
                 <input 
                     className="w-full bg-gray-200 text-gray-700 border border-gray-200 
@@ -63,7 +63,13 @@ const AddTask = () => {
                 </div>
             </form>
             <div>
-                <button></button>
+              <button></button>
+            </div>
+            <div>
+                <button className="bg-blue-500 text-white font-semibold uppercase text-sm
+                px-6 py-3 rounded hover:opacity-70">
+                    Add Task
+                </button>
             </div>
             </div>
           </div>
