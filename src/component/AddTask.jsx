@@ -2,6 +2,10 @@ import { useState } from "react";
 //opening views for adding new task
 const AddTask = () => {
   const [addModal, setAddModal] = useState(false);
+//setting project name and task description
+  const [projectName, setProjectName] = useState("");
+  const [taskDEscription, setTaskDescription] = useState("");
+
 
   //when add task button is clicked we need to close the box
   const handleAdd = () => {
