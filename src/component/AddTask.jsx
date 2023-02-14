@@ -4,7 +4,15 @@ const AddTask = () => {
   const [addModal, setAddModal] = useState(false);
 //setting project name and task description
   const [projectName, setProjectName] = useState("");
-  const [taskDEscription, setTaskDescription] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+//handling name/description inputs on the form
+  const handleInput = e => {
+    // const name = e.target.name;
+    // const value = e.target.value;
+    const { name, value } = e.target;
+    if (name === "projectName") setProjectName(value)
+    if (name === "projectDescription") setTaskDescription(value)
+  }
 
 
   //when add task button is clicked we need to close the box
@@ -51,8 +59,11 @@ const AddTask = () => {
                     className="w-full bg-gray-200 text-gray-700 border border-gray-200 
                     rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white"
                     id="project-name"
+                    name="projectName"
                     type="text"
                     placeholder="Project name"
+                    value={projectName}
+                    onChange={handleInput}
                     required
                 />
                 </div>
@@ -66,8 +77,11 @@ const AddTask = () => {
                     className="w-full bg-gray-200 text-gray-700 border border-gray-200 
                     rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white"
                         id="task-description"
+                        name="taskDescription"
                         rows="5"
                         placeholder="Task description"
+                        value={taskDescription}
+                        onChange={handleInput}
                     />
                 </div>
             </form>
