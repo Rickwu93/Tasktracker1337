@@ -1,6 +1,6 @@
 import { useState } from "react";
 //opening views for adding new task
-const AddTask = () => {
+const AddTask = ({ taskList, setTaskList }) => {
   const [addModal, setAddModal] = useState(false);
 //setting project name and task description
   const [projectName, setProjectName] = useState("");
@@ -16,8 +16,14 @@ const AddTask = () => {
 
 
   //when add task button is clicked we need to close the box
-  const handleAdd = () => {
+  const handleAdd = e => {
+    e.preventDefault();
+    setTaskList(
+      [...taskList], {projectName, taskDescription }
+    )
     setAddModal(false)
+    setProjectName("");
+    setTaskDescription("");
   }
 
   return (
@@ -48,7 +54,7 @@ const AddTask = () => {
                 x
               </button>
             </div>
-            <form className="p-6">
+            <form className="px-6 pt-6 pb-4">
                 <div>
                 <label className="track-wide uppercase text-gray-700 text-xs font-semibold mb-2
                 block"
