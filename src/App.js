@@ -21,7 +21,7 @@ function App() {
         my-4 py-1 px-2 bg-gray-200">To Do:</h2>
       {taskList.map((task, i) =>
         <>
-        <ToDo key={i} task={task} />
+        <ToDo key={i} task={task} index={i} taskList={taskList} setTaskList={setTaskList} />
         </>
       )}
       </div>
