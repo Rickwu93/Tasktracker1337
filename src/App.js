@@ -1,5 +1,7 @@
 import { useState } from "react";
 import AddTask from "./component/AddTask";
+import ToDo from "./component/ToDo";
+
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -16,6 +18,7 @@ function App() {
       </div>
       {taskList.map((task, i) =>
         <>
+        <ToDo />
           <p>{task.projectName}</p>
           <p>{task.taskDescription}</p>
         </>
