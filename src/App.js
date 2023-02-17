@@ -3,6 +3,7 @@ import AddTask from "./component/AddTask";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
+  console.log(taskList);
 
   return (
     <>
@@ -13,6 +14,12 @@ function App() {
         <AddTask taskList={taskList} setTaskList={setTaskList} />
       <p className="text-xl my-2">to add a new task</p>
       </div>
+      {taskList.map((task, i) =>
+        <>
+          <p>{task.projectName}</p>
+          <p>{task.taskDescription}</p>
+        </>
+      )}
     </>
   );
 } 

@@ -11,7 +11,7 @@ const AddTask = ({ taskList, setTaskList }) => {
     // const value = e.target.value;
     const { name, value } = e.target;
     if (name === "projectName") setProjectName(value)
-    if (name === "projectDescription") setTaskDescription(value)
+    if (name === "taskDescription") setTaskDescription(value)
   }
 
 
@@ -19,7 +19,7 @@ const AddTask = ({ taskList, setTaskList }) => {
   const handleAdd = e => {
     e.preventDefault();
     setTaskList(
-      [...taskList], {projectName, taskDescription }
+      [...taskList, {projectName, taskDescription }]
     )
     setAddModal(false)
     setProjectName("");
