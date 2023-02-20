@@ -37,12 +37,13 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
             </div>
             <div>
                 {running ? (
-                        <button>
+                        <button className="border rounded-lg py-1 px-3">
                             Stop
                     </button>
                     ):(
-                    <button>Start</button>
+                    <button className="border rounded-lg py-1 px-3">Start</button>
                     )}
+                    <button className="border rounded-lg py-1 px-3">Reset</button>
             </div>
         </div>
         <div className="w-full flex justify-center">
