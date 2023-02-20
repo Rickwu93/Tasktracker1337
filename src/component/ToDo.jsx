@@ -1,6 +1,9 @@
+import { useState } from "react";
 import EditTask from "./EditTask";
 
 const ToDo = ({ task, index, taskList, setTaskList }) => {
+    const [time, setTime] = useState(0);
+    const [running, setRunning] = useState(false);
   //getting index number we want to delete
     const handleDelete = itemID => {
         let removeIndex = taskList.indexOf(task);
@@ -25,6 +28,23 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
           />
         </div>
         <p className="text-lg py-2">{task.taskDescription}</p>
+        <div>
+            <div>
+                <span>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}:</span>
+                <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+                <span className="text-sm">:{("0" + ((time / 10) % 100)).slice(-2)}</span>
+            </div>
+            <div>
+                {running ? (
+                        <button>
+                            Stop
+                    </button>
+                    ):(
+                    <button>Start</button>
+                    )}
+            </div>
+        </div>
         <div className="w-full flex justify-center">
           <button
             className="bg-red-500 text-white text-sm uppercase

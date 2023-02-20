@@ -13,7 +13,10 @@ const AddTask = ({ taskList, setTaskList }) => {
     // const name = e.target.name;
     // const value = e.target.value;
     const { name, value } = e.target;
-    if (name === "projectName") { setProjectName(value) }
+    if (name === "projectName") { 
+      setProjectName(value);  
+      setErrorMessage(""); //no error if project name is present(value)
+    }
     //error handling empty names
     if (name === "projectName" && value === "") {
       setErrorMessage("Enter project name to continue");
