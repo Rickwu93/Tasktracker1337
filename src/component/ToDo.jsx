@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import EditTask from "./EditTask";
 
-const ToDo = ({ task, index, taskList, setTaskList }) => {
-  const [time, setTime] = useState(0);
+const ToDo = ({ task, taskList, setTaskList }) => {
+  const [time, setTime] = useState(task.duration);
   //stop watch
   const [running, setRunning] = useState(false);
 
@@ -17,15 +17,33 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
     }
     return () => clearInterval(interval);
   }, [running]);
+//variable for setting up localStorage to save the duration when stop is clicked
+  const handleStop = () => {
+    setRunning(false);
+//setting localStorage as a tasklist item
+    let taskIndex = taskList.indexOf(task);
+    taskList.splice(taskIndex, 1, {
+        projectName: task.projectName,
+        taskDescription: task.taskDescription,
+        timestamp: task.timestamp,
+        duration: time
+    })
+    localStorage.setItem("taskList", JSON.stringify(taskList))
+    window.location.reload();
+  }
+
   //getting index number we want to delete
   const handleDelete = (itemID) => {
     let removeIndex = taskList.indexOf(task);
     taskList.splice(removeIndex, 1);
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    window.location.reload();
     //filter through taskList to show what's left after removal
-    setTaskList((currentTasks) =>
-      currentTasks.filter((todo) => todo.id !== itemID)
-    );
-  };
+    // setTaskList((currentTasks) =>
+    //   currentTasks.filter((todo) => todo.id !== itemID)
+    // );
+  }
+
   return (
     <>
       <div
@@ -36,7 +54,6 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
           <p className="font-semibold text-xl">{task.projectName}</p>
           <EditTask
             task={task}
-            index={index}
             taskList={taskList}
             setTaskList={setTaskList}
           />
@@ -55,9 +72,7 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
             {running ? (
               <button
                 className="border rounded-lg py-1 px-3"
-                onClick={() => {
-                  setRunning(false);
-                }}
+                onClick={handleStop}
               >
                 Stop
               </button>
