@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTask from "./component/AddTask";
 import ToDo from "./component/ToDo";
 
 
 function App() {
   const [taskList, setTaskList] = useState([]);
-  console.log(taskList);
+  //preload the saved localstorage of tasks
+  useEffect(() => {
+    let array = localStorage.getItem("taskList");
+
+    if(array) {
+      setTaskList(JSON.parse(array))
+    }
+  }, [])
 
   return (
     <>
