@@ -7,19 +7,19 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
   //stop watch
   const [running, setRunning] = useState(false);
   //adding drag n' drop
-  const [{isDragging}, drag] = useDrag(() => ({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: "todo",
     item: {
       id: index,
       projectName: task.projectName,
       taskDescription: task.taskDescription,
       timestamp: task.timestamp,
-      duration: task.duration
+      duration: task.duration,
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
-    })
-  }))
+    }),
+  }));
 
   useEffect(() => {
     let interval;
@@ -32,20 +32,20 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
     }
     return () => clearInterval(interval);
   }, [running]);
-//variable for setting up localStorage to save the duration when stop is clicked
+  //variable for setting up localStorage to save the duration when stop is clicked
   const handleStop = () => {
     setRunning(false);
-//setting localStorage as a tasklist item
+    //setting localStorage as a tasklist item
     let taskIndex = taskList.indexOf(task);
     taskList.splice(taskIndex, 1, {
-        projectName: task.projectName,
-        taskDescription: task.taskDescription,
-        timestamp: task.timestamp,
-        duration: time
-    })
-    localStorage.setItem("taskList", JSON.stringify(taskList))
+      projectName: task.projectName,
+      taskDescription: task.taskDescription,
+      timestamp: task.timestamp,
+      duration: time,
+    });
+    localStorage.setItem("taskList", JSON.stringify(taskList));
     window.location.reload();
-  }
+  };
 
   //getting index number we want to delete
   const handleDelete = (itemID) => {
@@ -57,25 +57,24 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
     // setTaskList((currentTasks) =>
     //   currentTasks.filter((todo) => todo.id !== itemID)
     // );
-  }
+  };
 
   return (
     <>
       <div
         className="flex flex-col items-start justify-start bg-white
-            my-4 py-4 px-6 w-3/4 max-w-lg" ref={drag}
+            my-4 py-4 px-6 w-3/4 max-w-lg"
+        ref={drag}
       >
         <div className="w-full flex flex-row justify-between">
           <p className="font-semibold text-xl">{task.projectName}</p>
-          <EditTask
-            task={task}
-            taskList={taskList}
-            setTaskList={setTaskList}
-          />
+          <EditTask task={task} taskList={taskList} setTaskList={setTaskList} />
         </div>
         <p className="text-lg py-2">{task.taskDescription}</p>
-        <div className="w-full flex flex-col sm:flex-row items-center justify-center
-        sm:justify-evenly">
+        <div
+          className="w-full flex flex-col sm:flex-row items-center justify-center
+        sm:justify-evenly"
+        >
           <div className="sm:w-1/4 text-xl font-semibold py-4">
             <span>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}:</span>
             <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
@@ -102,14 +101,14 @@ const ToDo = ({ task, index, taskList, setTaskList }) => {
                 Start
               </button>
             )}
-            <button 
-                className="border rounded-lg py-1 px-3"
-                onClick={() => {
-                    setTime(0)
-                }}
-                >
-                    Reset
-                </button>
+            <button
+              className="border rounded-lg py-1 px-3"
+              onClick={() => {
+                setTime(0);
+              }}
+            >
+              Reset
+            </button>
           </div>
         </div>
         <div className="w-full flex justify-center">
