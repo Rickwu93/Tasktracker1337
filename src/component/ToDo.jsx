@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import EditTask from "./EditTask";
 
-const ToDo = ({ task, taskList, setTaskList }) => {
+const ToDo = ({ task, index, taskList, setTaskList }) => {
   const [time, setTime] = useState(task.duration);
   //stop watch
   const [running, setRunning] = useState(false);
   //adding drag n' drop
   const [{isDragging}, drag] = useDrag(() => ({
     type: "todo",
+    item: {
+      id: index,
+      projectName: task.projectName,
+      taskDescription: task.taskDescription,
+      timestamp: task.timestamp,
+      duration: task.duration
+    },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     })
@@ -67,8 +74,9 @@ const ToDo = ({ task, taskList, setTaskList }) => {
           />
         </div>
         <p className="text-lg py-2">{task.taskDescription}</p>
-        <div className="w-full flex flex-row items-center justify-evenly">
-          <div className="w-1/4 text-xl font-semibold py-4">
+        <div className="w-full flex flex-col sm:flex-row items-center justify-center
+        sm:justify-evenly">
+          <div className="sm:w-1/4 text-xl font-semibold py-4">
             <span>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}:</span>
             <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
             <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
