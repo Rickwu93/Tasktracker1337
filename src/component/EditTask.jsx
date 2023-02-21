@@ -25,12 +25,16 @@ const EditTask = ({ task, taskList, setTaskList }) => {
     e.preventDefault();
     //removes previous preexisting task to update new (just removing 1 item)
     let taskIndex = taskList.indexOf(task);
-    taskList.splice(taskIndex, 1);
-
-    setTaskList(
-      [...taskList, {projectName, taskDescription }]
-    )
-    setEditModal(false)
+    //setting parameters for splice method
+    taskList.splice(taskIndex, 1, {
+        projectName: projectName,
+        taskDescription: taskDescription,
+        timestamp: task.timestamp,
+        duration: task.duration
+    });
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    window.location.reload();
+    setEditModal(false);
   }
 
     return (
